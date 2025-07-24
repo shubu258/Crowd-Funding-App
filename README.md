@@ -1,86 +1,136 @@
+# 📘 EventCreation Smart Contract
 
+## 🧩 Introduction
 
-# 📘 EventCreation Smart Contract – Project Documentation
+**EventCreation**, originally designed as `JarCreation`, is a decentralized fundraising smart contract built on the **Ethereum blockchain** using **Solidity**. It enables individuals, communities, and organizations to raise funds transparently by creating digital **"Jars"**—virtual donation pools with specific goals or causes.
 
-## Introduction : 
-
-The `JarCreation` smart contract is a decentralized fundraising system built on the Ethereum blockchain using Solidity. It allows individuals to create digital "jars" or virtual donation pools with a specific goal or cause in mind. Other users can contribute ETH to these jars, and once the target amount is reached, the creator can withdraw the funds. This system brings transparency, control, and trust to fundraising by using the immutable and auditable nature of blockchain technology. In this project Event is referred as Jar . 
-
-## Why This Is Helpful & Needed
-
-In a world where crowdfunding and donations are increasingly done online, there's always the challenge of trust, mismanagement of funds, or opaque processes. The `JarCreation` contract solves this by making the donation process entirely transparent and verifiable. Anyone can see the status of a fundraising jar, how much has been raised, and whether the creator has withdrawn the funds. This makes it ideal for various real-life scenarios such as:
-
-* **Medical Emergencies**: Individuals facing serious health issues can create jars for surgeries, treatments, or urgent care.
-* **Community Support**: Local communities or NGOs can create jars for relief funds, education, infrastructure, etc.
-* **Event Fundraising**: College events, hackathons, social drives, and awareness campaigns can use this to transparently raise funds from participants and sponsors.
-* **Personal Goals**: People can even use it for personal ventures like building projects, travel with a cause, or skill development.
-
-Moreover, the smart contract allows donors to reclaim their money if a campaign is dismissed before its goal is met, thus protecting donor interests. It promotes decentralized financial coordination without intermediaries, and ensures security through Ethereum’s underlying protocols.
-
-## Features
-
-The contract enables the following key functionalities:
-
-* **Create Jars**: Any user can create a new fundraising campaign (jar) by specifying its name, cause, and target amount.
-* **Donate ETH**: Contributors can easily donate to active jars using the `donateToJar` function.
-* **Withdraw Funds**: When the target is met, the jar creator can withdraw the collected funds.
-* **Dismiss Jars**: If the creator decides to cancel the campaign before reaching the goal, the jar can be dismissed.
-* **Claim Refunds**: In case of a dismissed jar, donors can claim refunds equivalent to their contributions.
-* **Real-Time Transparency**: Each action emits an event so users can track activity (creation, donation, withdrawal, dismissal, refund) via blockchain explorers.
-
-## Technical Summary
-
-Each jar is represented using a `struct` that stores the campaign details such as name, creator address, cause, fundraising goal, current amount collected, and status flags for withdrawal or dismissal. A mapping tracks how much each donor has contributed to each jar. The system ensures that a jar cannot be withdrawn or dismissed multiple times and that donors cannot over-contribute beyond the jar’s target.
-
-Access control is enforced so that only the creator of a jar can withdraw or dismiss it. This prevents unauthorized manipulation. The contract also handles edge cases like overfunding, double-withdrawals, and donations to dismissed or completed jars.
-
-## Events & Error Handling
-
-The contract uses Solidity events like `jarCreated`, `fundDeposited`, `fundWithdrawn`, `refundClaimed`, and others to track changes and notify off-chain systems or front-end UIs. Additionally, custom error messages like `jarDoesNotExist` and `withdrawFailed` make debugging and user feedback cleaner.
-
-## Real-World Example
-
-Imagine an accident victim's family creates a fundraising jar for ₹3 lakhs (equivalent ETH) to pay for surgery. Friends, family, and even anonymous donors from the internet can contribute directly using MetaMask. As the funds grow and reach the goal, the family can withdraw them instantly without needing a bank or a centralized crowdfunding platform. If the campaign is withdrawn early for any reason, contributors can get their money back—all secured and processed automatically through the blockchain.
----
-![alt text]({F5B8F49E-5ED1-4BCD-903C-AC6572F12599}.png)
----
-
-Here’s a **concise summary of each function** in the `JarCreation` smart contract:
+> 💡 In this context, an "Event" refers to a "Jar"—a fundraising instance for a specific purpose.
 
 ---
 
-### 🔧 Function Summaries
+## 🌟 Why It Matters
 
-* **`createJar(string _name, string _cause, uint256 _targetAmount)`**
-  <br>Allows a user to create a new fundraising jar by providing a name, cause, and target amount. Initializes the jar with default values and stores it.
+In today’s digital world, crowdfunding faces challenges like **trust issues**, **fund misuse**, and **lack of transparency**. `EventCreation` solves this through blockchain, ensuring every transaction is:
 
-* **`donateToJar(uint256 _jarId, uint256 _amountDeposited)`**
-  <br>Lets users donate ETH to a specific jar. Updates the jar’s current amount and logs the donor's contribution. Emits an event if the target is reached.
+- 🔒 Transparent
+- ⚙️ Automated
+- 🧾 Auditable
 
-* **`withdrawJarAmount(uint256 _jarId, uint256 _withdrawnAmount)`**
-  <br>Enables the jar creator to withdraw the collected funds if the jar has reached or partially reached its goal. Prevents double withdrawals.
+### ✅ Real-World Use Cases
 
-* **`getJarCount()`**
-  <br>Returns the total number of jars created. Helpful for iterating over all existing jars on the frontend.
+- 🏥 **Medical Emergencies** – Surgery, treatment, urgent care
+- 🌍 **Community Support** – NGOs, education, relief funds
+- 🎉 **Event Fundraising** – College fests, hackathons, drives
+- 🚀 **Personal Goals** – Learning, travel, creative ventures
 
-* **`getJarDetails(uint256 _jarId)`**
-  <br>Provides public details of a specific jar including name, creator, cause, target, current amount, and withdrawal status.
-
-* **`getDepositDetails(uint256 _jarId, address _donor)`**
-  <br>Returns how much a donor has contributed to a jar, as well as their total created and withdrawn amounts across the contract.
-
-* **`getJarCreator(uint256 _jarId)`**
-  <br>Returns the address of the creator of a specified jar.
-
-* **`getJarCurrentAmount(uint256 _jarId)`**
-  <br>Fetches the current amount of ETH collected in a particular jar.
-
-* **`dismissJar(uint256 _jarId)`**
-  <br>Allows the creator to cancel their own jar before withdrawal. Once dismissed, donations cannot be made and refunds become possible.
-
-* **`claimJarsRefund(uint256 _jarId)`**
-  <br>Lets a donor reclaim their donation if the jar was dismissed and not withdrawn. Transfers their donated amount back to them.
+Plus, **donors can reclaim their funds** if a campaign is dismissed before completion.
 
 ---
 
+## 🔐 Key Features
+
+| Feature | Description |
+|--------|-------------|
+| 🎯 **Create Jars** | Launch a fundraising campaign with a name, cause, and target. |
+| 💸 **Donate ETH** | Contribute ETH directly to any jar. |
+| 🏧 **Withdraw Funds** | If the goal is reached, the creator can withdraw the ETH. |
+| ❌ **Dismiss Jars** | Creators can cancel their jars before reaching the goal. |
+| 💰 **Claim Refunds** | Donors can reclaim ETH from dismissed jars. |
+| 📡 **On-Chain Transparency** | All events are visible on blockchain explorers. |
+
+---
+
+## 🧠 Smart Contract Structure
+
+Each **Jar** is a `struct` containing:
+
+- Jar ID
+- Name & Cause
+- Creator address
+- Target & current amount
+- Status: withdrawn or dismissed
+
+### 🧾 Tracking:
+
+- Uses `mappings` to track donor contributions per jar.
+- Access control ensures only the creator can withdraw/dismiss.
+- Prevents:
+  - Overfunding
+  - Multiple withdrawals
+  - Donations to dismissed jars
+
+---
+
+## 📢 Events & Error Handling
+
+**Events:**
+- `JarCreated`
+- `FundDeposited`
+- `FundWithdrawn`
+- `JarDismissed`
+- `RefundClaimed`
+
+**Custom Errors:**
+- `JarDoesNotExist`
+- `NotAuthorized`
+- `WithdrawFailed`
+- `AlreadyWithdrawn`
+
+These improve debugging and help off-chain UIs monitor updates.
+
+---
+
+## 🌍 Real-Life Example
+
+> Imagine a family needs ₹3,00,000 for emergency surgery.  
+They create a jar on-chain.  
+Friends and donors contribute ETH using MetaMask.  
+Once the goal is met, the family withdraws the funds instantly.  
+If the campaign is canceled, all donors get their ETH back.  
+**No middlemen. No bank delays. Just trustless fundraising.**
+
+---
+
+## 🔧 Function Overview
+
+| Function | Purpose |
+|----------|---------|
+| `createJar(string _name, string _cause, uint256 _targetAmount)` | Starts a new jar |
+| `donateToJar(uint256 _jarId)` | Donate ETH to a jar |
+| `withdrawJarAmount(uint256 _jarId, uint256 _withdrawnAmount)` | Creator withdraws ETH |
+| `getJarCount()` | Returns total number of jars |
+| `getJarDetails(uint256 _jarId)` | Fetch jar details |
+| `getDepositDetails(uint256 _jarId, address _donor)` | View donor contribution |
+| `getJarCreator(uint256 _jarId)` | Get jar creator’s address |
+| `getJarCurrentAmount(uint256 _jarId)` | ETH collected so far |
+| `dismissJar(uint256 _jarId)` | Cancel a jar campaign |
+| `claimJarsRefund(uint256 _jarId)` | Donor claims refund |
+
+---
+
+## 💻 Tech Stack
+
+- 🧠 Solidity
+- 🧪 Hardhat / Foundry
+- 🔌 Ethers.js
+- 🦊 MetaMask
+- 🧾 Sepolia / Anvil (testnets)
+- 🌕Ether,js
+- 🌐React.js
+- ⛩️Html
+- 🏯CSS
+
+---
+
+## 🤝 Contribute
+
+Want to improve this contract or build a dApp on top of it?  
+Feel free to use, fork, and contribute with attribution.
+MIT License.  
+
+---
+
+## 🔗 Connect
+
+Built with 💙 by [Shivansh Nigam](https://github.com/shubu258)
 
