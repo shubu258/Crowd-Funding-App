@@ -1,10 +1,10 @@
 
 
-# 📘 JarCreation Smart Contract – Project Documentation
+# 📘 EventCreation Smart Contract – Project Documentation
 
-## Introduction
+## Introduction : 
 
-The `JarCreation` smart contract is a decentralized fundraising system built on the Ethereum blockchain using Solidity. It allows individuals to create digital "jars" or virtual donation pools with a specific goal or cause in mind. Other users can contribute ETH to these jars, and once the target amount is reached, the creator can withdraw the funds. This system brings transparency, control, and trust to fundraising by using the immutable and auditable nature of blockchain technology.
+The `JarCreation` smart contract is a decentralized fundraising system built on the Ethereum blockchain using Solidity. It allows individuals to create digital "jars" or virtual donation pools with a specific goal or cause in mind. Other users can contribute ETH to these jars, and once the target amount is reached, the creator can withdraw the funds. This system brings transparency, control, and trust to fundraising by using the immutable and auditable nature of blockchain technology. In this project Event is referred as Jar . 
 
 ## Why This Is Helpful & Needed
 
